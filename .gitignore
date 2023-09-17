@@ -8,6 +8,8 @@ __pycache__
 # media
 staticfiles
 
+quastions.txt
+
 # Backup files #
 *.bak
 
