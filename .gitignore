@@ -9,6 +9,7 @@ __pycache__
 staticfiles
 
 quastions.txt
+cookie.txt
 
 # Backup files #
 *.bak

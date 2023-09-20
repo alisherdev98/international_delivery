@@ -26,16 +26,18 @@ class AbstractRepository(abc.ABC):
 
         return self.model.objects.bulk_create(
             instances,
-            update_conflicts=True,
-            update_fields=('name', 'full_name',),
-            unique_fields=('id',),
+            # update_conflicts=True,
+            # update_fields=('name', 'full_name',),
+            # unique_fields=('id',),
+            ignore_conflicts=True,
         )
     
     def bulk_update(self, objects_sequence, update_fields):
-        return self.model.objects.bulk_update(
+        updated_count = self.model.objects.bulk_update(
             objects_sequence,
             update_fields,
         )
+        return set(objects_sequence)
         
 class DeliveryTypeRepository(AbstractRepository):
     model = DeliveryType

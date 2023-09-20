@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  # web:
+  #   image: web_image
+  #   build: .
+  #   command: python manage.py runserver 0.0.0.0:8000
+  #   env_file:
+  #     - .env
+  #   ports:
+  #     - "8000:8000"
+  #   depends_on:
+  #     - db
+  #     - mongodb
+  #     - redis
+
+  db:
+    image: mysql:latest
+    env_file:
+      - .env
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  # redis:
+  #   image: redis:alpine
+  #   command: ["redis-server", "--bind", "redis", "--port", "6380"]
+  #   ports:
+  #     - '6380:6380'
+
+  # celery-worker:
+  #   image: web_image
+  #   command: ['celery', '-A', 'international_delivery', 'worker', '-B', '-l', info]
+  #   env_file:
+  #     - .env
+  #   depends_on:
+  #     - web
+  #     - redis
+  #     - mongodb
+
+  # mongodb:
+  #   image: mongo:latest
+  #   ports:
+  #     - '27018:27017'
+  #   env_file:
+  #     - .env
+
+  # mq_listener:
+  #   image: web_image
+  #   command: python mq.py
+  #   env_file:
+  #     - .env
+  #   depends_on:
+  #     - db
+  #     - mongodb
+  #     - redis
+
+
+
+volumes:
+  mysql_data:

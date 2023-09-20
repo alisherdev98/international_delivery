@@ -1,6 +1,8 @@
 import abc
 import requests
 
+from logger.tasks import request_logger
+
 
 class AbstractRequester(abc.ABC):
     @abc.abstractproperty
@@ -14,6 +16,7 @@ class AbstractRequester(abc.ABC):
     def __init__(self) -> None:
         assert self.domain
 
+    @request_logger
     def _get(self, path, params=None):
         assert path
 
@@ -23,6 +26,7 @@ class AbstractRequester(abc.ABC):
             headers=self.headers,
         )
     
+    @request_logger
     def _post(self, path, body, params=None):
         assert path
         assert body

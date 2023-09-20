@@ -31,6 +31,14 @@
             ],
             "django": true,
             "justMyCode": false
+        },
+        {
+            "name": "django mq listener",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/mq.py",
+            "django": true,
+            "justMyCode": false
         }
     ]
 }

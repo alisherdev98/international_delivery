@@ -21,6 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv()
 
 from conf import REDIS_HOST, REDIS_PORT
+import conf
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -44,8 +45,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'drf_api_logger',
 
     'delivery',
+    'logger',
 
 ]
 
@@ -57,6 +60,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    'drf_api_logger.middleware.api_logger_middleware.APILoggerMiddleware',
 ]
 
 ROOT_URLCONF = 'international_delivery.urls'
@@ -85,8 +90,12 @@ WSGI_APPLICATION = 'international_delivery.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        "ENGINE": conf.DB_ENGINE,
+        "NAME": conf.DB_NAME,
+        "USER": conf.DB_USER,
+        "PASSWORD": conf.DB_PASSWORD,
+        "HOST": conf.DB_HOST,
+        "PORT": conf.DB_PORT,
     }
 }
 
@@ -157,3 +166,10 @@ CACHES = {
         'TIMEOUT': 60 * 60 * 12,
     }
 }
+
+# sessions
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 365  # session will be stored for a year
+SESSION_SAVE_EVERY_REQUEST = True
+
+# logging
+DRF_API_LOGGER_DATABASE = True

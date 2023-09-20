@@ -10,6 +10,18 @@ class DeliveryTypeModelSerializer(serializers.ModelSerializer):
 
 
 class DeliveryModelSerializer(serializers.ModelSerializer):
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+
+        if not data['delivery_cost']:
+            data['delivery_cost'] = 'Не расcчитано'
+        return data
+    
     class Meta:
         model = Delivery
         fields = '__all__'
+        extra_kwargs = {
+            'session_key': {
+                'write_only': True
+            }
+        }
