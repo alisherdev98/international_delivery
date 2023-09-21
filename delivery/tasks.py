@@ -69,7 +69,7 @@ def calculate_daily_delivery_cost():
                 # lambda x, y: x['delivery_cost'] + y['delivery_cost'],
                 reduce_func,
                 delivery_data,
-                initial=0,
+                0,
             )
         else:
             type_delivery_cost = 0
@@ -80,10 +80,10 @@ def calculate_daily_delivery_cost():
 
 
 def reduce_func(x, y):
-    if not isinstance(x, int):
+    if not isinstance(x, (int, float)):
         x = x['delivery_cost']
 
-    if not isinstance(y, int):
+    if not isinstance(y, (int, float)):
         y = y['delivery_cost']
 
     return x + y
