@@ -92,8 +92,8 @@ def reduce_func(x, y):
 # app tasks
 class DeliveryCalculator:
     def __init__(self, weight, content_cost, exchange_rate) -> None:
-        self.weight = weight
-        self.content_cost = content_cost
+        self.weight = round(weight, 2)
+        self.content_cost = round(content_cost, 2)
         # self.exchanger = exchanger
         self.exchange_rate = exchange_rate
 

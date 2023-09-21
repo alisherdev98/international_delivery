@@ -16,8 +16,8 @@ app.conf.beat_schedule = {
     },
     'calculating_daily_delivery_cost': {
         'task': 'calculate_daily_delivery_cost',
-        # 'schedule': crontab(hour=3, minute=0),
-        'schedule': crontab(minute='*/4'),
+        'schedule': crontab(hour=3, minute=0),
+        # 'schedule': crontab(minute='*/4'),
     },
 }
 
