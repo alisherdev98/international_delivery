@@ -15,6 +15,7 @@ load_dotenv()
 from delivery.tasks import ConsumerMQ, callback_mq
 
 def main():
+    
     consumer = ConsumerMQ()
 
     consumer.consume(callback_mq)

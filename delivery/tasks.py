@@ -66,7 +66,8 @@ def calculate_daily_delivery_cost():
         )
         if delivery_data:
             type_delivery_cost = reduce(
-                lambda x, y: x['delivery_cost'] + y['delivery_cost'],
+                # lambda x, y: x['delivery_cost'] + y['delivery_cost'],
+                reduce_func,
                 delivery_data,
                 initial=0,
             )
@@ -76,6 +77,16 @@ def calculate_daily_delivery_cost():
         result[delivery_type] = type_delivery_cost
 
     return result
+
+
+def reduce_func(x, y):
+    if not isinstance(x, int):
+        x = x['delivery_cost']
+
+    if not isinstance(y, int):
+        y = y['delivery_cost']
+
+    return x + y
 
 
 # app tasks
@@ -140,6 +151,7 @@ class ConsumerMQ:
         )
     
     def start_consuming(self):
+        print('READY')
         self.channel.start_consuming()
 
     def stop_consuming(self):
