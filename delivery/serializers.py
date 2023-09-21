@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from delivery.enums import DeliveryCreatingTypeEnum
 
 from delivery.models import Delivery, DeliveryType
 
@@ -25,3 +26,18 @@ class DeliveryModelSerializer(serializers.ModelSerializer):
                 'write_only': True
             }
         }
+
+
+class TransportDeliverySerializer(serializers.Serializer):
+    company_id = serializers.IntegerField()
+
+
+class DeliveryCreatingQueryParamSerializer(serializers.Serializer):
+    DELIVERY_CREATING_CHOICES = [
+        (
+            type_enum.value,
+            type_enum.name.lower()
+        ) for type_enum in DeliveryCreatingTypeEnum
+    ]
+
+    message_broker = serializers.ChoiceField(choices=DELIVERY_CREATING_CHOICES, required=False)

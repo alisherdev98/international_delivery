@@ -157,11 +157,13 @@ def callback_mq(ch, method, properties, body):
         content_cost=data['content_cost'],
         exchange_rate=exchange_rate,
     ).calculate()
-    data['delivery_cost'] = int(delivery_cost)
+    data['delivery_cost'] = delivery_cost
 
     serializer = DeliveryModelSerializer(data=data)
     serializer.is_valid()
-    serializer.save()
+    object = serializer.save()
+    print(object)
+
 
 
 

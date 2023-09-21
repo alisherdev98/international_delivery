@@ -33,9 +33,14 @@ class AbstractConnection(abc.ABC):
 
 class RabbitMQConnection(AbstractConnection):
     def _initialize(self):
+        credentials = pika.PlainCredentials(
+            username=conf.RABBITMQ_DEFAULT_USER,
+            password=conf.RABBITMQ_DEFAULT_PASS,
+        )
         self._connection_params = pika.ConnectionParameters(
             host=conf.RABBITMQ_HOST,
             port=conf.RABBITMQ_PORT,
+            credentials=credentials,
         )
         self._connection = pika.BlockingConnection(
             self._connection_params

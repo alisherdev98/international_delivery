@@ -9,3 +9,8 @@ class DeliveryTypeEnum(Enum):
     def __init__(self, id, full_name) -> None:
         self.id = id
         self.full_name = full_name
+
+
+class DeliveryCreatingTypeEnum(Enum):
+    CELERY_WORKER = 0
+    RABBITMQ_QUEUE = 1

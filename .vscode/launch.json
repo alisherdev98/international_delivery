@@ -10,7 +10,8 @@
             "request": "launch",
             "program": "${workspaceFolder}/manage.py",
             "args": [
-                "runserver"
+                "runserver",
+                "8000"
             ],
             "django": true,
             "justMyCode": false
@@ -37,6 +38,14 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/mq.py",
+            "django": true,
+            "justMyCode": false
+        },
+        {
+            "name": "pytest django",
+            "type": "python",
+            "request": "launch",
+            "module": "pytest",
             "django": true,
             "justMyCode": false
         }

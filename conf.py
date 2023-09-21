@@ -1,6 +1,8 @@
 import os
 from django.conf import settings
 
+DEBUG = int(os.environ.get('DEBUG', 0))
+
 CBRDAILY_DOMAIN = os.environ.get('CBRDAILY_DOMAIN')
 CBRDAILY_EXCHANGE_PATH = os.environ.get('CBRDAILY_EXCHANGE_PATH')
 
@@ -19,3 +21,5 @@ MONGO_PORT = os.environ.get('MONGO_PORT', '27017')
 
 RABBITMQ_HOST = os.environ.get('RABBITMQ_HOST', 'localhost')
 RABBITMQ_PORT = os.environ.get('RABBITMQ_PORT', '5672')
+RABBITMQ_DEFAULT_USER = os.environ.get('RABBITMQ_DEFAULT_USER', 'admin')
+RABBITMQ_DEFAULT_PASS = os.environ.get('RABBITMQ_DEFAULT_PASS', 'pass')

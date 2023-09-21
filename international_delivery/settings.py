@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 from dotenv import load_dotenv
+import os
 
 
 
@@ -30,9 +31,9 @@ import conf
 SECRET_KEY = 'django-insecure-%97w@8h)&vv6xpwd8*)r)ip6xy9r5nes!h2c=qy)yk8za52)8a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = conf.DEBUG
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -46,6 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'drf_api_logger',
+    'drf_yasg',
+    'django_filters',
 
     'delivery',
     'logger',
@@ -135,6 +138,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -147,7 +154,8 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',
-    ]
+    ],
+    'EXCEPTION_HANDLER': 'international_delivery.exception_handlers.custom_exception_handler',
 }
 
 
@@ -163,13 +171,18 @@ CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
         "LOCATION": f"redis://{REDIS_HOST}:{REDIS_PORT}/1",
-        'TIMEOUT': 60 * 60 * 12,
+        # 'TIMEOUT': 60 * 60 * 12,
     }
 }
 
 # sessions
-SESSION_COOKIE_AGE = 60 * 60 * 24 * 365  # session will be stored for a year
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 365 * 100  # session will be stored for a 100 year
 SESSION_SAVE_EVERY_REQUEST = True
 
 # logging
 DRF_API_LOGGER_DATABASE = True
+
+# swagger
+SWAGGER_SETTINGS = {
+    "DEFAULT_MODEL_RENDERING": "example"
+}
